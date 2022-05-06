@@ -1,0 +1,23 @@
+{
+  "name": "hillclimbing",
+  "version": "0.0.0",
+  "description": "A hill climbing algorithm implemented in javascript",
+  "main": "src/index.js",
+  "homepage": "https://github.com/201flaviosilva/HillClimbing.js#readme",
+  "author": "201flaviosilva",
+  "license": "MIT",
+  "scripts": {
+    "bump": "np"
+  },
+  "devDependencies": {
+    "np": "^7.6.1"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/201flaviosilva/HillClimbing.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/201flaviosilva/HillClimbing.js/issues"
+  }
+}
