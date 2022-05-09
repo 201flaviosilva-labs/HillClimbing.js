@@ -7,9 +7,15 @@
   "author": "201flaviosilva",
   "license": "MIT",
   "scripts": {
-    "bump": "np"
+    "build": "npm run jsDoc",
+    "bump": "np",
+    "jsDoc": "jsdoc -c jsdoc.conf.json",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d docs"
   },
   "devDependencies": {
+    "gh-pages": "^3.2.3",
+    "jsdoc": "^3.6.10",
     "np": "^7.6.1"
   },
   "keywords": [],
