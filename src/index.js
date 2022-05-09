@@ -3,7 +3,6 @@
  * A entry point for the Hill Climbing algorithm.
  * 
  * @example
- * var hillClimbing = new HillClimbing([
  * const targets = [
  * {
  * 	name: "myValue1", // The name of the value

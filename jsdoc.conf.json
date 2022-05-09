@@ -10,12 +10,17 @@
   },
   "plugins": ["plugins/markdown"],
   "templates": {
+    "name": "Hill Climbing",
+    "useCollapsibles": true,
     "cleverLinks": true,
     "monospaceLinks": true
   },
   "opts": {
-    "destination": "docs",
+    "encoding": "utf8",
+    "package": "package.json",
     "recurse": true,
-    "readme": "README.md"
+    "destination": "docs",
+    "readme": "README.md",
+    "template": "node_modules/tui-jsdoc-template"
   }
 }
