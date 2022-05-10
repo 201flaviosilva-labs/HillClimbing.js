@@ -7,9 +7,11 @@
   "author": "201flaviosilva",
   "license": "MIT",
   "scripts": {
-    "build": "npm run jsDoc",
-    "bump": "np",
+    "clear": "rm -rf docs && rm -rf types && rm -rf build",
     "jsDoc": "jsdoc -c jsdoc.conf.json",
+    "types": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build": "npm run clear && npm run jsDoc && npm run types",
+    "bump": "np",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d docs"
   },
