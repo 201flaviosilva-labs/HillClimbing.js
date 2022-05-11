@@ -1,7 +1,8 @@
 _ignore
 
 # tests
-test
+jest.config.js
+tests
 coverage
 
 # build tools
@@ -23,3 +24,4 @@ coverage
 .github/
 node_modules/
 .DS_Store
+jsdoc.conf.json
