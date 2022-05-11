@@ -10,13 +10,16 @@
     "clear": "rm -rf docs && rm -rf types && rm -rf build",
     "jsDoc": "jsdoc -c jsdoc.conf.json",
     "types": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "test": "jest --watchAll",
     "build": "npm run clear && npm run jsDoc && npm run types",
     "bump": "np",
-    "predeploy": "npm run build",
+    "predeploy": "npm run test && npm run build",
     "deploy": "gh-pages -d docs"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "gh-pages": "^3.2.3",
+    "jest": "^28.1.0",
     "jsdoc": "^3.6.10",
     "np": "^7.6.1",
     "tui-jsdoc-template": "^1.2.2"

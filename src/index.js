@@ -24,9 +24,12 @@
  */
 class HillClimbing {
 	constructor(targets) {
-		this.targets = targets;
-		this.bestSolution = targets;
-		this.currentSolution = targets;
+		if (targets === undefined) throw new Error("You must pass a list of targets");
+		else if (targets.length === 0) throw new Error("You must pass at least one target");
+
+		this.targets = targets.map(target => ({ ...target }));
+		this.bestSolution = targets.map(target => ({ ...target }));
+		this.currentSolution = targets.map(target => ({ ...target }));
 
 		this.lastTargetChanged = null;
 		this.lastScore = -Infinity;
@@ -47,6 +50,7 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 */
 	addTarget(target) {
+
 		this.targets.push(target);
 		this.bestSolution.push(target);
 		this.currentSolution.push(target);
@@ -68,6 +72,9 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 */
 	setAllTargets(targets) {
+		if (targets === undefined) throw new Error("You must pass a list of targets");
+		else if (targets.length === 0) throw new Error("You must pass at least one target");
+
 		this.targets = targets;
 		this.bestSolution = targets;
 		this.currentSolution = targets;
@@ -230,16 +237,15 @@ class HillClimbing {
 	 * @returns {Array} - The new current solution
 	 * @memberof HillClimbing
 	 */
-	run(score) {
+	run(score = -Infinity) {
 		this.numberOfIterations++;
 		this.lastScore = score;
 
-		// If the current solution is better than the best solution, update the best solution
+		// If the current solution is better than the bestSolution, update the best solution
 		if (score > this.bestScore) {
 			this.bestScore = score;
-			this.bestSolution = [...this.currentSolution];
+			this.bestSolution = this.currentSolution.map(target => ({ ...target }));
 		} else this.currentSolution = this.bestSolution.map(target => ({ ...target }));
-		// console.log(this.bestSolution);
 
 		// Get a new random target to change
 		let targetIndex = this.randomNumber(0, this.bestSolution.length - 1);
@@ -249,7 +255,7 @@ class HillClimbing {
 		this.lastTargetChanged = target;
 		this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max);
 
-		return this.currentSolution;
+		return this.currentSolution.map(target => ({ ...target }));
 	}
 
 	/**
@@ -265,10 +271,11 @@ class HillClimbing {
 	 */
 	reset() {
 		this.numberOfIterations = 0;
-		this.bestSolution = this.targets;
-		this.currentSolution = this.targets;
+		this.bestSolution = this.targets.map(target => ({ ...target }));
+		this.currentSolution = this.targets.map(target => ({ ...target }));
 		this.lastTargetChanged = null;
 		this.bestScore = -Infinity;
+		this.lastScore = -Infinity;
 	}
 
 	/**
@@ -297,7 +304,7 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 * @method randomNumber
 	 */
-	randomNumber(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+	randomNumber(min = 0, max = 1) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 }
 
 export default HillClimbing;
