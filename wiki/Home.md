@@ -1,1 +1,3 @@
-not-test onProcessExit: process exit with code=127, signal=undefined
+# HillClimbing.js
+
+Welcome to the HillClimbing.js wiki!

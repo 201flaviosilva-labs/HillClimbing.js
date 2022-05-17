@@ -25,4 +25,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_MAIL: ${{ secrets.EMAIL }}
           GH_NAME: ${{ github.repository_owner }}
-          EXCLUDED_FILES: "a/ b.md"
+          EXCLUDED_FILES: "_ignore/"
