@@ -134,7 +134,7 @@ class HillClimbing {
 	 * @returns {Array} - The list of targets
 	 * @memberof HillClimbing
 	 */
-	getTargets() { return this.targets; }
+	getTargets() { return this.targets.map(target => ({ ...target })); }
 
 	/**
 	 * @description
@@ -146,7 +146,7 @@ class HillClimbing {
 	 * @returns {Array} - The best solution
 	 * @memberof HillClimbing
 	 */
-	getBestSolution() { return this.bestSolution; }
+	getBestSolution() { return this.bestSolution.map(target => ({ ...target })); }
 
 	/**
 	 * @description
@@ -170,7 +170,7 @@ class HillClimbing {
 	 * @returns {Array} - The current solution
 	 * @memberof HillClimbing
 	 */
-	getCurrentSolution() { return this.currentSolution; }
+	getCurrentSolution() { return this.currentSolution.map(target => ({ ...target })); }
 
 	/**
 	 * @description
@@ -220,7 +220,7 @@ class HillClimbing {
 	 * @returns {Object} - The last target that has been changed
 	 * @memberof HillClimbing
 	 */
-	getLastTargetChanged() { return this.lastTargetChanged; }
+	getLastTargetChanged() { return this.lastTargetChanged ? { ...this.lastTargetChanged } : null; }
 
 	/**
 	 * @description
@@ -289,7 +289,7 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 * @method getVersion
 	 */
-	getVersion() { return "0.0.0"; }
+	getVersion() { return "0.0.1"; }
 
 	/**
 	 * @description 

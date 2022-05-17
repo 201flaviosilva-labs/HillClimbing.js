@@ -1,8 +1,10 @@
-# HillClimbing.js
+# Hill Climbing JavaScript 
+
+[![NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/hillclimbing)
 
 ## Table of Contents
 
-- [HillClimbing.js](#hillclimbingjs)
+- [Hill Climbing JavaScript](#hill-climbing-javascript)
 	- [Table of Contents](#table-of-contents)
 	- [Introduction](#introduction)
 	- [Simple Get Started](#simple-get-started)
@@ -75,6 +77,7 @@ const myNewSolution = myHillClimbing.run(myScore);
 For more information, examples and a better understanding, check the [Wiki](https://github.com/201flaviosilva/HillClimbing.js/wiki).
 
 ## Community
+- [NPM package page](https://www.npmjs.com/package/hillclimbing);
 - [Wiki (Documentation)](https://github.com/201flaviosilva/HillClimbing.js/wiki);
 - [Web Site](https://201flaviosilva.github.io/HillClimbing.js/);
 - [GitHub](https://github.com/201flaviosilva/HillClimbing.js);
