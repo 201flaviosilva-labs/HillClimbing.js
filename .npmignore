@@ -25,3 +25,4 @@ coverage
 node_modules/
 .DS_Store
 jsdoc.conf.json
+wiki/
