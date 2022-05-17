@@ -23,6 +23,6 @@ jobs:
           # WIKI_DIR's default is wiki/
           WIKI_DIR: wiki/
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_MAIL: ${{ secrets.EMAIL }}
+          GH_MAIL: ${{ github.event.pusher.email }}
           GH_NAME: ${{ github.repository_owner }}
           EXCLUDED_FILES: "_ignore/"
