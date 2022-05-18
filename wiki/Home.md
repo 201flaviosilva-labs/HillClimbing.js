@@ -5,10 +5,14 @@ A [hill climbing](https://en.wikipedia.org/wiki/Hill_climbing) algorithm impleme
 
 This is a implemented algorithm in javascript.
 
+## Index
+- [Getting Started](./GetStarted.md);
+- [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/);
+
 ## Community
 - [NPM package page](https://www.npmjs.com/package/hillclimbing);
 - [Wiki (Documentation)](https://github.com/201flaviosilva/HillClimbing.js/wiki);
-<!-- - [Web Site](https://201flaviosilva.github.io/HillClimbing.js/); -->
+- [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/);
 - [GitHub](https://github.com/201flaviosilva/HillClimbing.js);
   - [Issues](https://github.com/201flaviosilva/HillClimbing.js/issues);
   - [Pull Requests](https://github.com/201flaviosilva/HillClimbing.js/pulls);

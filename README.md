@@ -38,14 +38,14 @@ import HillClimbing from "hillclimbing";
 
 ```js
 const targets = [
-			{
-				name: "myValue1", // The name of the value
-				value: 50, // The initial value
-				min: 0, // The minimum value that the value can be
-				max: 100, // The maximum value that the value can be
-			},
-			{ name: "myValue2", value: -2, min: -100, max: 10 },
-			{ name: "myValue3", value: 764, min: 100, max: 1250 },
+	{
+		name: "myValue1", // The name of the value
+		value: 50, // The initial value
+		min: 0, // The minimum value that the value can be
+		max: 100, // The maximum value that the value can be
+	},
+	{ name: "myValue2", value: -2, min: -100, max: 10 },
+	{ name: "myValue3", value: 764, min: 100, max: 1250 },
 ];
 
 const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
@@ -63,9 +63,9 @@ const myNewSolution = myHillClimbing.run(myScore); // Run the algorithm and get 
 import HillClimbing from "hillclimbing";
 
 const targets = [
-			{ name: "myValue1", value: 50, min: 0, max: 100 },
-			{ name: "myValue2", value: -2, min: -100, max: 10 },
-			{ name: "myValue3", value: 764, min: 100, max: 1250 },
+	{ name: "myValue1", value: 50, min: 0, max: 100 },
+	{ name: "myValue2", value: -2, min: -100, max: 10 },
+	{ name: "myValue3", value: 764, min: 100, max: 1250 },
 ];
 
 const myHillClimbing = new HillClimbing(targets);
@@ -79,7 +79,7 @@ For more information, examples and a better understanding, check the [Wiki](http
 ## Community
 - [NPM package page](https://www.npmjs.com/package/hillclimbing);
 - [Wiki (Documentation)](https://github.com/201flaviosilva/HillClimbing.js/wiki);
-- [Web Site](https://201flaviosilva.github.io/HillClimbing.js/);
+- [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/);
 - [GitHub](https://github.com/201flaviosilva/HillClimbing.js);
   - [Issues](https://github.com/201flaviosilva/HillClimbing.js/issues);
   - [Pull Requests](https://github.com/201flaviosilva/HillClimbing.js/pulls);

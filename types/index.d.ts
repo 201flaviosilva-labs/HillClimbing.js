@@ -199,7 +199,7 @@ declare class HillClimbing {
      * @returns {Array} - The new current solution
      * @memberof HillClimbing
      */
-    run(score: number): any[];
+    run(score?: number): any[];
     /**
      * @description
      * Resets the algorithm
@@ -217,7 +217,7 @@ declare class HillClimbing {
      * Returns teh current version of the library
      *
      * @example
-     * console.log(HillClimbing.getVersion());
+     * console.log(HillClimbing.getVersion()); // "0.0.1"
      *
      * @returns {String}
      * @memberof HillClimbing
@@ -237,5 +237,5 @@ declare class HillClimbing {
      * @memberof HillClimbing
      * @method randomNumber
      */
-    randomNumber(min: number, max: number): number;
+    randomNumber(min?: number, max?: number): number;
 }
