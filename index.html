@@ -95,9 +95,10 @@
 		value: 50, // The initial value
 		min: 0, // The minimum value that the value can be
 		max: 100, // The maximum value that the value can be
+		precision: 0, // The number of decimal places to round to
 	},
 	{ name: &quot;myValue2&quot;, value: -2, min: -100, max: 10 },
-	{ name: &quot;myValue3&quot;, value: 764, min: 100, max: 1250 },
+	{ name: &quot;myValue3&quot;, value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
 const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
@@ -110,9 +111,9 @@ const myNewSolution = myHillClimbing.run(myScore); // Run the algorithm and get 
 <pre class="prettyprint source lang-js"><code>import HillClimbing from &quot;hillclimbing&quot;;
 
 const targets = [
-	{ name: &quot;myValue1&quot;, value: 50, min: 0, max: 100 },
+	{ name: &quot;myValue1&quot;, value: 50, min: 0, max: 100, precision: 0 },
 	{ name: &quot;myValue2&quot;, value: -2, min: -100, max: 10 },
-	{ name: &quot;myValue3&quot;, value: 764, min: 100, max: 1250 },
+	{ name: &quot;myValue3&quot;, value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
 const myHillClimbing = new HillClimbing(targets);

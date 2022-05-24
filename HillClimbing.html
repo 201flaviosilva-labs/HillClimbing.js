@@ -70,7 +70,7 @@
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line1">line 1</a></code>
+                <code><a href="index.js.html#line3">line 3</a></code>
             </div>
             
         </h4>
@@ -120,7 +120,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
@@ -205,9 +205,10 @@
 	value: 50, // The initial value
 	min: 0, // The minimum value that the value can be
 	max: 100, // The maximum value that the value can be
+ precision: 0, // The number of decimal places to round to
 },
 { name: "myValue2", value: -2, min: -100, max: 10 },
-{ name: "myValue3", value: 764, min: 100, max: 1250 },
+{ name: "myValue3", value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
 const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)</code></pre>
@@ -249,7 +250,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line281">line 281</a></code>
+                <code><a href="index.js.html#line284">line 284</a></code>
             </div>
             
         </h4>
@@ -344,7 +345,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>console.log(HillClimbing.getVersion()); // "0.0.1"</code></pre>
+    <pre class="prettyprint"><code>console.log(HillClimbing.getVersion()); // "0.0.2"</code></pre>
 
     
 
@@ -362,7 +363,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line294">line 294</a></code>
+                <code><a href="index.js.html#line297">line 297</a></code>
             </div>
             
         </h4>
@@ -552,7 +553,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line52">line 52</a></code>
+                <code><a href="index.js.html#line55">line 55</a></code>
             </div>
             
         </h4>
@@ -715,7 +716,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line125">line 125</a></code>
+                <code><a href="index.js.html#line128">line 128</a></code>
             </div>
             
         </h4>
@@ -827,12 +828,12 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h4 class="name" id="getBestSolution">
             
-                <span class="type-signature"></span>getBestSolution<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+                <span class="type-signature"></span>getBestSolution<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span>
                 
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line149">line 149</a></code>
+                <code><a href="index.js.html#line152">line 152</a></code>
             </div>
             
         </h4>
@@ -874,7 +875,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
 
 
 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
 
@@ -944,12 +945,12 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h4 class="name" id="getBestSolutionValues">
             
-                <span class="type-signature"></span>getBestSolutionValues<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+                <span class="type-signature"></span>getBestSolutionValues<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span>
                 
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line161">line 161</a></code>
+                <code><a href="index.js.html#line164">line 164</a></code>
             </div>
             
         </h4>
@@ -991,7 +992,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
 
 
 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;number></span>
 
 
 
@@ -1066,7 +1067,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line211">line 211</a></code>
+                <code><a href="index.js.html#line214">line 214</a></code>
             </div>
             
         </h4>
@@ -1228,12 +1229,12 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h4 class="name" id="getCurrentSolution">
             
-                <span class="type-signature"></span>getCurrentSolution<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+                <span class="type-signature"></span>getCurrentSolution<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span>
                 
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line173">line 173</a></code>
+                <code><a href="index.js.html#line176">line 176</a></code>
             </div>
             
         </h4>
@@ -1275,7 +1276,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
 
 
 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
 
@@ -1345,12 +1346,12 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h4 class="name" id="getCurrentSolutionValues">
             
-                <span class="type-signature"></span>getCurrentSolutionValues<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+                <span class="type-signature"></span>getCurrentSolutionValues<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span>
                 
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line185">line 185</a></code>
+                <code><a href="index.js.html#line188">line 188</a></code>
             </div>
             
         </h4>
@@ -1392,7 +1393,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
 
 
 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;number></span>
 
 
 
@@ -1467,7 +1468,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line198">line 198</a></code>
+                <code><a href="index.js.html#line201">line 201</a></code>
             </div>
             
         </h4>
@@ -1634,7 +1635,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line223">line 223</a></code>
+                <code><a href="index.js.html#line226">line 226</a></code>
             </div>
             
         </h4>
@@ -1751,7 +1752,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line113">line 113</a></code>
+                <code><a href="index.js.html#line116">line 116</a></code>
             </div>
             
         </h4>
@@ -1863,12 +1864,12 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h4 class="name" id="getTargets">
             
-                <span class="type-signature"></span>getTargets<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+                <span class="type-signature"></span>getTargets<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span>
                 
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line137">line 137</a></code>
+                <code><a href="index.js.html#line140">line 140</a></code>
             </div>
             
         </h4>
@@ -1910,7 +1911,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
 
 
 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
 
@@ -1985,7 +1986,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line94">line 94</a></code>
+                <code><a href="index.js.html#line97">line 97</a></code>
             </div>
             
         </h4>
@@ -2148,7 +2149,7 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line272">line 272</a></code>
+                <code><a href="index.js.html#line275">line 275</a></code>
             </div>
             
         </h4>
@@ -2256,12 +2257,12 @@ const myHillClimbing = new HillClimbing(targets); // Create a new instance and p
     
         <h4 class="name" id="run">
             
-                <span class="type-signature"></span>run<span class="signature">(score)</span><span class="type-signature"> &rarr; {Array}</span>
+                <span class="type-signature"></span>run<span class="signature">(score)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span>
                 
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line240">line 240</a></code>
+                <code><a href="index.js.html#line243">line 243</a></code>
             </div>
             
         </h4>
@@ -2355,7 +2356,7 @@ This function will calculate a new solution based on the best solution and will 
 
 
 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
 
@@ -2431,7 +2432,7 @@ myHillClimbing.run(myNewScore);</code></pre>
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line74">line 74</a></code>
+                <code><a href="index.js.html#line77">line 77</a></code>
             </div>
             
         </h4>
@@ -2485,7 +2486,7 @@ myHillClimbing.run(myNewScore);</code></pre>
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
