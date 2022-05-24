@@ -1,3 +1,5 @@
+import Package from "../package.json";
+
 /**
  * @classdesc 
  * A entry point for the Hill Climbing algorithm.
@@ -9,16 +11,17 @@
  * 	value: 50, // The initial value
  * 	min: 0, // The minimum value that the value can be
  * 	max: 100, // The maximum value that the value can be
+ *  precision: 0, // The number of decimal places to round to
  * },
  * { name: "myValue2", value: -2, min: -100, max: 10 },
- * { name: "myValue3", value: 764, min: 100, max: 1250 },
+ * { name: "myValue3", value: 764, min: 100, max: 1250, precision: 10 },
  * ];
  * 
  * const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
  * 
  * @class HillClimbing
 
- * @param {Array} targets - a list of targets
+ * @param {Object[]} targets - a list of targets
  * @constructor
  * @see {@link https://en.wikipedia.org/wiki/Hill_climbing}
  */
@@ -67,7 +70,7 @@ class HillClimbing {
 	 * { name: "myNewValue3", value: 0, min: 0, max: 1 },
 	 * ]);
 	 * 
-	 * @param {Array} targets - A list of new targets
+	 * @param {Object[]} targets - A list of new targets
 	 * @returns {void}
 	 * @memberof HillClimbing
 	 */
@@ -131,7 +134,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getTargets());
 	 * 
-	 * @returns {Array} - The list of targets
+	 * @returns {Object[]} - The list of targets
 	 * @memberof HillClimbing
 	 */
 	getTargets() { return this.targets.map(target => ({ ...target })); }
@@ -143,7 +146,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getBestSolution());
 	 * 
-	 * @returns {Array} - The best solution
+	 * @returns {Object[]} - The best solution
 	 * @memberof HillClimbing
 	 */
 	getBestSolution() { return this.bestSolution.map(target => ({ ...target })); }
@@ -155,7 +158,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getBestSolutionValues());
 	 * 
-	 * @returns {Array} - The values of the targets with the best solution
+	 * @returns {number[]} - The values of the targets with the best solution
 	 * @memberof HillClimbing
 	 */
 	getBestSolutionValues() { return this.bestSolution.map(target => target.value); }
@@ -167,7 +170,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getCurrentSolution());
 	 * 
-	 * @returns {Array} - The current solution
+	 * @returns {Object[]} - The current solution
 	 * @memberof HillClimbing
 	 */
 	getCurrentSolution() { return this.currentSolution.map(target => ({ ...target })); }
@@ -179,7 +182,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getCurrentSolutionValues());
 	 * 
-	 * @returns {Array} - The values of the targets with the current solution
+	 * @returns {number[]} - The values of the targets with the current solution
 	 * @memberof HillClimbing
 	 */
 	getCurrentSolutionValues() { return this.currentSolution.map(target => target.value); }
@@ -234,7 +237,7 @@ class HillClimbing {
 	 * myHillClimbing.run(myNewScore);
 	 * 
 	 * @param {Number} score - The score that will be used to calculate the new solution
-	 * @returns {Array} - The new current solution
+	 * @returns {Object[]} - The new current solution
 	 * @memberof HillClimbing
 	 */
 	run(score = -Infinity) {
@@ -253,7 +256,7 @@ class HillClimbing {
 
 		// Change the value of the target
 		this.lastTargetChanged = target;
-		this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max);
+		this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max, target.precision);
 
 		return this.currentSolution.map(target => ({ ...target }));
 	}
@@ -283,13 +286,13 @@ class HillClimbing {
 	 * Returns teh current version of the library
 	 * 
 	 * @example
-	 * console.log(HillClimbing.getVersion()); // "0.0.1"
+	 * console.log(HillClimbing.getVersion()); // "0.0.2"
 	 * 
 	 * @returns {String}
 	 * @memberof HillClimbing
 	 * @method getVersion
 	 */
-	getVersion() { return "0.0.1"; }
+	getVersion() { return Package.version; }
 
 	/**
 	 * @description 
@@ -304,7 +307,7 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 * @method randomNumber
 	 */
-	randomNumber(min = 0, max = 1) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+	randomNumber(min = 0, max = 1, precision = 0) { return parseFloat((Math.random() * (max - min) + min).toFixed(precision)) }
 }
 
 export default HillClimbing;

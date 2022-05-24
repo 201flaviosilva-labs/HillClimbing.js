@@ -1,0 +1,1 @@
+[NPM](https://www.npmjs.com/package/hillclimbing) - [Wiki](https://github.com/201flaviosilva/HillClimbing.js/wiki) - [API](https://201flaviosilva.github.io/HillClimbing.js/) - [GitHub](https://github.com/201flaviosilva/HillClimbing.js)
