@@ -2,9 +2,9 @@ import HillClimbing from "../src/index.js";
 import Package from "../package.json";
 
 const mockTargets = [
-	{ name: "myTarget1", value: 50, min: 0, max: 100, },
-	{ name: "myTarget2", value: -2, min: -100, max: 10 },
-	{ name: "myTarget3", value: 764, min: 100, max: 1250 },
+	{ name: "myTarget1", value: 50, min: 0, max: 100, precision: 0 },
+	{ name: "myTarget2", value: -2, min: -100, max: 10, },
+	{ name: "myTarget3", value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
 describe("Instantiate", () => {
