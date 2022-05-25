@@ -36,7 +36,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="HillClimbing.html">HillClimbing</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="HillClimbing_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="HillClimbing.html#.getVersion">getVersion</a></li><li><a href="HillClimbing.html#.randomNumber">randomNumber</a></li><li><a href="HillClimbing.html#addTarget">addTarget</a></li><li><a href="HillClimbing.html#getBestScore">getBestScore</a></li><li><a href="HillClimbing.html#getBestSolution">getBestSolution</a></li><li><a href="HillClimbing.html#getBestSolutionValues">getBestSolutionValues</a></li><li><a href="HillClimbing.html#getBestTargetValueSolutionByName">getBestTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getCurrentSolution">getCurrentSolution</a></li><li><a href="HillClimbing.html#getCurrentSolutionValues">getCurrentSolutionValues</a></li><li><a href="HillClimbing.html#getCurrentTargetValueSolutionByName">getCurrentTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getLastTargetChanged">getLastTargetChanged</a></li><li><a href="HillClimbing.html#getNumberOfIterations">getNumberOfIterations</a></li><li><a href="HillClimbing.html#getTargets">getTargets</a></li><li><a href="HillClimbing.html#removeTarget">removeTarget</a></li><li><a href="HillClimbing.html#reset">reset</a></li><li><a href="HillClimbing.html#run">run</a></li><li><a href="HillClimbing.html#setAllTargets">setAllTargets</a></li></ul></div></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="HillClimbing.html">HillClimbing</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="HillClimbing_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="HillClimbing.html#.getVersion">getVersion</a></li><li><a href="HillClimbing.html#.randomNumber">randomNumber</a></li><li><a href="HillClimbing.html#addTarget">addTarget</a></li><li><a href="HillClimbing.html#getBestScore">getBestScore</a></li><li><a href="HillClimbing.html#getBestSolution">getBestSolution</a></li><li><a href="HillClimbing.html#getBestSolutionValues">getBestSolutionValues</a></li><li><a href="HillClimbing.html#getBestTargetValueSolutionByName">getBestTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getCurrentSolution">getCurrentSolution</a></li><li><a href="HillClimbing.html#getCurrentSolutionValues">getCurrentSolutionValues</a></li><li><a href="HillClimbing.html#getCurrentTargetValueSolutionByName">getCurrentTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getLastTargetChanged">getLastTargetChanged</a></li><li><a href="HillClimbing.html#getNumberOfIterations">getNumberOfIterations</a></li><li><a href="HillClimbing.html#getTargets">getTargets</a></li><li><a href="HillClimbing.html#removeTarget">removeTarget</a></li><li><a href="HillClimbing.html#reset">reset</a></li><li><a href="HillClimbing.html#run">run</a></li><li><a href="HillClimbing.html#setAllTargets">setAllTargets</a></li><li><a href="HillClimbing.html#setTargetMax">setTargetMax</a></li><li><a href="HillClimbing.html#setTargetMin">setTargetMin</a></li><li><a href="HillClimbing.html#setTargetName">setTargetName</a></li><li><a href="HillClimbing.html#setTargetPrecision">setTargetPrecision</a></li><li><a href="HillClimbing.html#setTargetProperty">setTargetProperty</a></li></ul></div></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -152,6 +152,81 @@ class HillClimbing {
 			this.currentSolution.splice(index, 1);
 		}
 	}
+
+	/**
+	 * @description
+	 * Change a target property (name, min, max, precision)
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetProperty("myTargetName", "name", "myNewName");
+	 * myHillClimbing.setTargetProperty("myNewName", "min", -100);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {string} property - The property to change
+	 * @param {string|number} value - The new value
+	 */
+	setTargetProperty(targetName, property, value) {
+		if (targetName === undefined) throw new Error("You must pass a target name");
+		else if (property === undefined) throw new Error("You must pass a property to change");
+		else if (value === undefined) throw new Error("You must pass a value to change");
+
+		const targetIndex = this.targets.findIndex(target => target.name === targetName);
+		if (targetIndex &lt; 0) throw new Error(`Target ${targetName} not found`);
+
+		if (targetIndex > -1) {
+			this.targets[targetIndex][property] = value;
+			this.bestSolution[targetIndex][property] = value;
+			this.currentSolution[targetIndex][property] = value;
+		}
+	}
+
+	/**
+	 * @description
+	 * Change a target name
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetName("myTargetName", "myNewName");
+	 * 
+	 * @param {string} oldName - The name of the target to change
+	 * @param {string} newName - The new name of the target
+	 */
+	setTargetName(oldName, newName) { this.setTargetProperty(oldName, "name", newName); }
+
+	/**
+	 * @description
+	 * Change a target minimum value
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetMin("myTargetName", -100);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {number} min - The new minimum value
+	 */
+	setTargetMin(targetName, min) { this.setTargetProperty(targetName, "min", min); }
+
+	/**
+	 * @description
+	 * Change a target maximum value
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetMax("myTargetName", 100);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {number} max - The new maximum value
+	 */
+	setTargetMax(targetName, max) { this.setTargetProperty(targetName, "max", max); }
+
+	/**
+	 * @description
+	 * Change a target precision
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetPrecision("myTargetName", 5);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {number} precision - The new precision value
+	 */
+	setTargetPrecision(targetName, precision) { this.setTargetProperty(targetName, "precision", precision); }
 
 	/**
 	 * @description
