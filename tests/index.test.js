@@ -30,18 +30,19 @@ describe("Instantiate", () => {
 	});
 });
 
-test("addTarget -> Add a new target to the list of targets", () => {
-	const mockNewTarget = { name: "myNewTarget", value: -1234, min: -2000, max: 0 };
-	const finalMockTargets = [...mockTargets, mockNewTarget];
+describe("addTarget", () => {
+	test("Add a new target to the list of targets", () => {
+		const mockNewTarget = { name: "myNewTarget", value: -1234, min: -2000, max: 0 };
+		const finalMockTargets = [...mockTargets, mockNewTarget];
 
-	const hillClimbing = new HillClimbing(mockTargets);
-	hillClimbing.addTarget(mockNewTarget);
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.addTarget(mockNewTarget);
 
-	expect(hillClimbing.targets).toEqual(finalMockTargets);
-	expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
-	expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
 });
-
 
 describe("setAllTargets", () => {
 	test("Should fail if no targets are passed", () => {
@@ -81,6 +82,140 @@ describe("removeTarget", () => {
 
 		const finalMockTargets = [...mockTargets];
 		finalMockTargets.splice(0, 1);
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+});
+
+describe("setTargetProperty", () => {
+	test("Should fail if no target name are passed", () => {
+		expect(() => {
+			const hc = new HillClimbing(mockTargets);
+			hc.setTargetProperty();
+		}).toThrowError("You must pass a target name");
+	});
+
+	test("Should fail if no target property are passed", () => {
+		expect(() => {
+			const hc = new HillClimbing(mockTargets);
+			hc.setTargetProperty("myTarget1");
+		}).toThrowError("You must pass a property to change");
+	});
+
+	test("Should fail if no target value are passed", () => {
+		expect(() => {
+			const hc = new HillClimbing(mockTargets);
+			hc.setTargetProperty("myTarget1", "min");
+		}).toThrowError("You must pass a value to change");
+	});
+
+	test("Should fail if no target founded", () => {
+		expect(() => {
+			const hc = new HillClimbing(mockTargets);
+			hc.setTargetProperty("myTarget4", "min", 0);
+		}).toThrowError("Target myTarget4 not found");
+	});
+
+	test("Set name property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetProperty("myTarget1", "name", "myNewTarget1");
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].name = "myNewTarget1";
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+
+	test("Set min property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetProperty("myTarget1", "min", -100);
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].min = -100;
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+
+	test("Set max property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetProperty("myTarget1", "max", 100);
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].max = 100;
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+
+	test("Set precision property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetProperty("myTarget1", "precision", 3);
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].precision = 3;
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+});
+
+describe("setTargetName", () => {
+	test("Set name property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetName("myTarget1", "myNewTarget1");
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].name = "myNewTarget1";
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+});
+
+describe("setTargetMin", () => {
+	test("Set min property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetMin("myTarget1", -100);
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].min = -100;
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+});
+
+describe("setTargetMax", () => {
+	test("Set max property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetMax("myTarget1", 100);
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].max = 100;
+
+		expect(hillClimbing.targets).toEqual(finalMockTargets);
+		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
+		expect(hillClimbing.currentSolution).toEqual(finalMockTargets);
+	});
+});
+
+describe("setTargetPrecision", () => {
+	test("Set precision property", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		hillClimbing.setTargetPrecision("myTarget1", 3);
+
+		const finalMockTargets = mockTargets.map(target => ({ ...target }));
+		finalMockTargets[0].precision = 3;
 
 		expect(hillClimbing.targets).toEqual(finalMockTargets);
 		expect(hillClimbing.bestSolution).toEqual(finalMockTargets);
