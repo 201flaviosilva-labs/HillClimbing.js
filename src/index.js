@@ -105,6 +105,81 @@ class HillClimbing {
 
 	/**
 	 * @description
+	 * Change a target property (name, min, max, precision)
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetProperty("myTargetName", "name", "myNewName");
+	 * myHillClimbing.setTargetProperty("myNewName", "min", -100);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {string} property - The property to change
+	 * @param {string|number} value - The new value
+	 */
+	setTargetProperty(targetName, property, value) {
+		if (targetName === undefined) throw new Error("You must pass a target name");
+		else if (property === undefined) throw new Error("You must pass a property to change");
+		else if (value === undefined) throw new Error("You must pass a value to change");
+
+		const targetIndex = this.targets.findIndex(target => target.name === targetName);
+		if (targetIndex < 0) throw new Error(`Target ${targetName} not found`);
+
+		if (targetIndex > -1) {
+			this.targets[targetIndex][property] = value;
+			this.bestSolution[targetIndex][property] = value;
+			this.currentSolution[targetIndex][property] = value;
+		}
+	}
+
+	/**
+	 * @description
+	 * Change a target name
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetName("myTargetName", "myNewName");
+	 * 
+	 * @param {string} oldName - The name of the target to change
+	 * @param {string} newName - The new name of the target
+	 */
+	setTargetName(oldName, newName) { this.setTargetProperty(oldName, "name", newName); }
+
+	/**
+	 * @description
+	 * Change a target minimum value
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetMin("myTargetName", -100);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {number} min - The new minimum value
+	 */
+	setTargetMin(targetName, min) { this.setTargetProperty(targetName, "min", min); }
+
+	/**
+	 * @description
+	 * Change a target maximum value
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetMax("myTargetName", 100);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {number} max - The new maximum value
+	 */
+	setTargetMax(targetName, max) { this.setTargetProperty(targetName, "max", max); }
+
+	/**
+	 * @description
+	 * Change a target precision
+	 * 
+	 * @example
+	 * myHillClimbing.setTargetPrecision("myTargetName", 5);
+	 * 
+	 * @param {string} targetName - The name of the target to change
+	 * @param {number} precision - The new precision value
+	 */
+	setTargetPrecision(targetName, precision) { this.setTargetProperty(targetName, "precision", precision); }
+
+	/**
+	 * @description
 	 * Returns the number of iterations that have been run
 	 * 
 	 * @example
