@@ -1,8 +1,8 @@
 import Package from "../package.json";
 
 /**
- * @classdesc 
- * A entry point for the Hill Climbing algorithm.
+ * @class HillClimbing
+ * @classdesc A entry point for the Hill Climbing algorithm.
  * 
  * @example
  * const targets = [
@@ -19,8 +19,6 @@ import Package from "../package.json";
  * 
  * const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
  * 
- * @class HillClimbing
-
  * @param {Object[]} targets - a list of targets
  * @constructor
  * @see {@link https://en.wikipedia.org/wiki/Hill_climbing}
@@ -114,10 +112,12 @@ class HillClimbing {
 	 * @param {string} targetName - The name of the target to change
 	 * @param {string} property - The property to change
 	 * @param {string|number} value - The new value
+	 * @returns {void}
+	 * @memberof HillClimbing
 	 */
 	setTargetProperty(targetName, property, value) {
 		if (targetName === undefined) throw new Error("You must pass a target name");
-		else if (property === undefined) throw new Error("You must pass a property to change");
+		else if (property === undefined) throw new Error("You must pass a property name to change");
 		else if (value === undefined) throw new Error("You must pass a value to change");
 
 		const targetIndex = this.targets.findIndex(target => target.name === targetName);
@@ -139,6 +139,8 @@ class HillClimbing {
 	 * 
 	 * @param {string} oldName - The name of the target to change
 	 * @param {string} newName - The new name of the target
+	 * @returns {void}
+	 * @memberof HillClimbing
 	 */
 	setTargetName(oldName, newName) { this.setTargetProperty(oldName, "name", newName); }
 
@@ -151,6 +153,8 @@ class HillClimbing {
 	 * 
 	 * @param {string} targetName - The name of the target to change
 	 * @param {number} min - The new minimum value
+	 * @returns {void}
+	 * @memberof HillClimbing
 	 */
 	setTargetMin(targetName, min) { this.setTargetProperty(targetName, "min", min); }
 
@@ -163,6 +167,8 @@ class HillClimbing {
 	 * 
 	 * @param {string} targetName - The name of the target to change
 	 * @param {number} max - The new maximum value
+	 * @returns {void}
+	 * @memberof HillClimbing
 	 */
 	setTargetMax(targetName, max) { this.setTargetProperty(targetName, "max", max); }
 
@@ -175,6 +181,8 @@ class HillClimbing {
 	 * 
 	 * @param {string} targetName - The name of the target to change
 	 * @param {number} precision - The new precision value
+	 * @returns {void}
+	 * @memberof HillClimbing
 	 */
 	setTargetPrecision(targetName, precision) { this.setTargetProperty(targetName, "precision", precision); }
 
@@ -185,7 +193,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getNumberOfIterations());
 	 * 
-	 * @returns {Number} - The number of iterations that have been run
+	 * @returns {Number} The number of iterations that have been run
 	 * @memberof HillClimbing
 	 */
 	getNumberOfIterations() { return this.numberOfIterations; }
@@ -197,7 +205,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getBestScore());
 	 * 
-	 * @returns {Number} - The best score that has been found so far
+	 * @returns {Number} The best score that has been found so far
 	 * @memberof HillClimbing
 	 */
 	getBestScore() { return this.bestScore; }
@@ -209,7 +217,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getTargets());
 	 * 
-	 * @returns {Object[]} - The list of targets
+	 * @returns {Object[]} The list of targets
 	 * @memberof HillClimbing
 	 */
 	getTargets() { return this.targets.map(target => ({ ...target })); }
@@ -221,7 +229,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getBestSolution());
 	 * 
-	 * @returns {Object[]} - The best solution
+	 * @returns {Object[]} The best solution
 	 * @memberof HillClimbing
 	 */
 	getBestSolution() { return this.bestSolution.map(target => ({ ...target })); }
@@ -233,7 +241,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getBestSolutionValues());
 	 * 
-	 * @returns {number[]} - The values of the targets with the best solution
+	 * @returns {number[]} The values of the targets with the best solution
 	 * @memberof HillClimbing
 	 */
 	getBestSolutionValues() { return this.bestSolution.map(target => target.value); }
@@ -245,7 +253,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getCurrentSolution());
 	 * 
-	 * @returns {Object[]} - The current solution
+	 * @returns {Object[]} The current solution
 	 * @memberof HillClimbing
 	 */
 	getCurrentSolution() { return this.currentSolution.map(target => ({ ...target })); }
@@ -257,7 +265,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getCurrentSolutionValues());
 	 * 
-	 * @returns {number[]} - The values of the targets with the current solution
+	 * @returns {number[]} The values of the targets with the current solution
 	 * @memberof HillClimbing
 	 */
 	getCurrentSolutionValues() { return this.currentSolution.map(target => target.value); }
@@ -270,7 +278,7 @@ class HillClimbing {
 	 * console.log(myHillClimbing.getCurrentSolutionValue("myValue1"));
 	 * 
 	 * @param {String} name - The name of the target
-	 * @returns {Number} - The current solution value of the given target name
+	 * @returns {Number} The current solution value of the given target name
 	 * @memberof HillClimbing
 	 */
 	getCurrentTargetValueSolutionByName(name) { return this.currentSolution.find(target => target.name === name).value; }
@@ -283,7 +291,7 @@ class HillClimbing {
 	 * console.log(myHillClimbing.getBestSolutionValue("myValue1"));
 	 * 
 	 * @param {String} name - The name of the target
-	 * @returns {Number} - The best solution value of the given target name
+	 * @returns {Number} The best solution value of the given target name
 	 * @memberof HillClimbing
 	 */
 	getBestTargetValueSolutionByName(name) { return this.bestSolution.find(target => target.name === name).value; }
@@ -295,7 +303,7 @@ class HillClimbing {
 	 * @example
 	 * console.log(myHillClimbing.getLastTargetChanged());
 	 * 
-	 * @returns {Object} - The last target that has been changed
+	 * @returns {Object} The last target that has been changed
 	 * @memberof HillClimbing
 	 */
 	getLastTargetChanged() { return this.lastTargetChanged ? { ...this.lastTargetChanged } : null; }
@@ -312,7 +320,7 @@ class HillClimbing {
 	 * myHillClimbing.run(myNewScore);
 	 * 
 	 * @param {Number} score - The score that will be used to calculate the new solution
-	 * @returns {Object[]} - The new current solution
+	 * @returns {Object[]} The new current solution
 	 * @memberof HillClimbing
 	 */
 	run(score = -Infinity) {
@@ -343,7 +351,6 @@ class HillClimbing {
 	 * @example
 	 * myHillClimbing.reset();
 	 * 
-	 * @memberof HillClimbing
 	 * @returns {void}
 	 * @memberof HillClimbing
 	 */
@@ -358,19 +365,6 @@ class HillClimbing {
 
 	/**
 	 * @description 
-	 * Returns teh current version of the library
-	 * 
-	 * @example
-	 * console.log(HillClimbing.getVersion()); // "0.0.2"
-	 * 
-	 * @returns {String}
-	 * @memberof HillClimbing
-	 * @method getVersion
-	 */
-	getVersion() { return Package.version; }
-
-	/**
-	 * @description 
 	 * Get a random number between two numbers
 	 * 
 	 * @example
@@ -378,11 +372,23 @@ class HillClimbing {
 	 * 
 	 * @param {Number} min - The minimum number
 	 * @param {Number} max - The maximum number
-	 * @returns {Number} - The random number
+	 * @returns {Number} The random number
 	 * @memberof HillClimbing
-	 * @method randomNumber
 	 */
 	randomNumber(min = 0, max = 1, precision = 0) { return parseFloat((Math.random() * (max - min) + min).toFixed(precision)) }
+
+	/**
+	 * @description 
+	 * Returns the current version of the library
+	 * 
+	 * @example
+	 * console.log(HillClimbing.getVersion()); // "0.0.2"
+	 * 
+	 * @returns {String}
+	 * @memberof HillClimbing
+	 * @static
+	 */
+	static getVersion() { return Package.version; }
 }
 
 export default HillClimbing;

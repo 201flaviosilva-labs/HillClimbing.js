@@ -101,7 +101,7 @@ describe("setTargetProperty", () => {
 		expect(() => {
 			const hc = new HillClimbing(mockTargets);
 			hc.setTargetProperty("myTarget1");
-		}).toThrowError("You must pass a property to change");
+		}).toThrowError("You must pass a property name to change");
 	});
 
 	test("Should fail if no target value are passed", () => {
@@ -541,9 +541,11 @@ describe("reset", () => {
 
 describe("getVersion", () => {
 	test("Should return a string", () => {
-		const hillClimbing = new HillClimbing(mockTargets);
-		expect(typeof hillClimbing.getVersion()).toBe("string");
-		expect(hillClimbing.getVersion()).toBe(Package.version);
+		expect(typeof HillClimbing.getVersion()).toBe("string");
+	});
+
+	test("Should return the same package version", () => {
+		expect(HillClimbing.getVersion()).toBe(Package.version);
 	});
 });
 

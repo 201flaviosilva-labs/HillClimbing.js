@@ -14,7 +14,8 @@
 - (Add)
   - Add precision property to the targets;
   - Functions to change a property of a target by the target name;
+  - Update some documentation;
 
 ## 0.0.1 (Date: 11/05/2022) - First version
 	- (Add)
-		- The first version of the engine.
+		- The first version of algorithm;

@@ -13,13 +13,10 @@
     "test": "jest",
     "start:test": "jest --watchAll",
     "build": "npm run clear && npm run jsDoc && npm run types",
-    "bump": "np",
-    "predeploy": "npm run test && npm run build",
-    "deploy": "gh-pages -d docs"
+    "bump": "np"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.17.9",
-    "gh-pages": "^3.2.3",
     "jest": "^28.1.0",
     "jsdoc": "^3.6.10",
     "np": "^7.6.1",
