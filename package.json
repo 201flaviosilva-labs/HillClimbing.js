@@ -1,6 +1,6 @@
 {
   "name": "hillclimbing",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A hill climbing algorithm implemented in javascript",
   "main": "src/index.js",
   "homepage": "https://github.com/201flaviosilva/HillClimbing.js#readme",
