@@ -22,7 +22,7 @@ coverage
 
 # misc
 .github/
+CODE_OF_CONDUCT.md
 node_modules/
-.DS_Store
 jsdoc.conf.json
 wiki/
