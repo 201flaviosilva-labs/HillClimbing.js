@@ -8,6 +8,7 @@ const mockTargets = [
 ];
 
 describe("Instantiate", () => {
+	// Fails Cases
 	test("Should fail if no targets are passed", () => {
 		expect(() => { new HillClimbing(); }).toThrowError("You must pass a list of targets");
 	});
@@ -16,6 +17,53 @@ describe("Instantiate", () => {
 		expect(() => { new HillClimbing([]); }).toThrowError("You must pass at least one target");
 	});
 
+	test("Should fail if a target is no a Object", () => {
+		expect(() => {
+			new HillClimbing(["myTarget1", "myTarget2", "myTarget3"]);
+		}).toThrowError("You must pass a list of targets");
+	});
+
+	test("Should fail if one of the targets does not have a name or is not a string", () => {
+		expect(() => {
+			new HillClimbing([{ value: 50, min: 0, max: 100 }]);
+		}).toThrowError("You must pass a name (String) for each target");
+
+		expect(() => {
+			new HillClimbing([{ name: 100, value: 50, min: 0, max: 100 }]);
+		}).toThrowError("You must pass a name (String) for each target");
+	});
+
+	test("Should fail if one of the targets does not have a value or is not a number", () => {
+		expect(() => {
+			new HillClimbing([{ name: "myTarget1", min: 0, max: 100 }]);
+		}).toThrowError("You must pass a value (Number) for each target");
+
+		expect(() => {
+			new HillClimbing([{ name: "myTarget1", value: "50", min: 0, max: 100 }]);
+		}).toThrowError("You must pass a value (Number) for each target");
+	});
+
+	test("Should fail if one of the targets does not have a min or is not a number", () => {
+		expect(() => {
+			new HillClimbing([{ name: "myTarget1", value: 50, max: 100 }]);
+		}).toThrowError("You must pass a minimum (Number) value for each target");
+
+		expect(() => {
+			new HillClimbing([{ name: "myTarget1", value: 50, min: "0", max: 100 }]);
+		}).toThrowError("You must pass a minimum (Number) value for each target");
+	});
+
+	test("Should fail if one of the targets does not have a max or is not a number", () => {
+		expect(() => {
+			new HillClimbing([{ name: "myTarget1", value: 50, min: 0 }]);
+		}).toThrowError("You must pass a maximum (Number) value for each target");
+
+		expect(() => {
+			new HillClimbing([{ name: "myTarget1", value: 50, min: 0, max: "100" }]);
+		}).toThrowError("You must pass a maximum (Number) value for each target");
+	});
+
+	// Normal Cases
 	test("Add mocked targets", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
 		expect(hillClimbing.targets).toEqual(mockTargets);
@@ -31,6 +79,42 @@ describe("Instantiate", () => {
 });
 
 describe("addTarget", () => {
+	// Fails Cases
+	test("Should fail if no target is passed", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.addTarget(); }).toThrowError("You must pass a target");
+	});
+
+	test("Should fail if target is not an Object", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.addTarget("myTarget1"); }).toThrowError("You must pass a target");
+	});
+
+	test("Should fail if target does not have a name or is not a string", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.addTarget({ value: 50, min: 0, max: 100 }); }).toThrowError("You must pass a name with the type String");
+		expect(() => { hillClimbing.addTarget({ name: 100, value: 50, min: 0, max: 100 }); }).toThrowError("You must pass a name with the type String");
+	});
+
+	test("Should fail if target does not have a value or is not a number", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.addTarget({ name: "myTarget1", min: 0, max: 100 }); }).toThrowError("You must pass a value with the type Number");
+		expect(() => { hillClimbing.addTarget({ name: "myTarget1", value: "50", min: 0, max: 100 }); }).toThrowError("You must pass a value with the type Number");
+	});
+
+	test("Should fail if target does not have a min or is not a number", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.addTarget({ name: "myTarget1", value: 50, max: 100 }); }).toThrowError("You must pass a minimum with the type Number");
+		expect(() => { hillClimbing.addTarget({ name: "myTarget1", value: 50, min: "0", max: 100 }); }).toThrowError("You must pass a minimum with the type Number");
+	});
+
+	test("Should fail if target does not have a max or is not a number", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.addTarget({ name: "myTarget1", value: 50, min: 0 }); }).toThrowError("You must pass a maximum with the type Number");
+		expect(() => { hillClimbing.addTarget({ name: "myTarget1", value: 50, min: 0, max: "100" }); }).toThrowError("You must pass a maximum with the type Number");
+	});
+
+	// Normal Cases
 	test("Add a new target to the list of targets", () => {
 		const mockNewTarget = { name: "myNewTarget", value: -1234, min: -2000, max: 0 };
 		const finalMockTargets = [...mockTargets, mockNewTarget];
@@ -45,6 +129,7 @@ describe("addTarget", () => {
 });
 
 describe("setAllTargets", () => {
+	// Fails Cases
 	test("Should fail if no targets are passed", () => {
 		expect(() => {
 			const hc = new HillClimbing(mockTargets);
@@ -59,6 +144,38 @@ describe("setAllTargets", () => {
 		}).toThrowError("You must pass at least one target");
 	});
 
+	test("Should fail if is passed a target that is not an Object", () => {
+		expect(() => {
+			const hc = new HillClimbing(mockTargets);
+			hc.setAllTargets(["myTarget1"]);
+		}).toThrowError("You must pass a list of targets");
+	});
+
+	test("Should fail if is passed a target that does not have a name or is not a string", () => {
+		const hc = new HillClimbing(mockTargets);
+		expect(() => { hc.setAllTargets([{ value: 50, min: 0, max: 100 }]); }).toThrowError("You must pass a name (String) for each target");
+		expect(() => { hc.setAllTargets([{ name: 100, value: 50, min: 0, max: 100 }]); }).toThrowError("You must pass a name (String) for each target");
+	});
+
+	test("Should fail if is passed a target that does not have a value or is not a number", () => {
+		const hc = new HillClimbing(mockTargets);
+		expect(() => { hc.setAllTargets([{ name: "myTarget1", min: 0, max: 100 }]); }).toThrowError("You must pass a value (Number) for each target");
+		expect(() => { hc.setAllTargets([{ name: "myTarget1", value: "50", min: 0, max: 100 }]); }).toThrowError("You must pass a value (Number) for each target");
+	});
+
+	test("Should fail if is passed a target that does not have a min or is not a number", () => {
+		const hc = new HillClimbing(mockTargets);
+		expect(() => { hc.setAllTargets([{ name: "myTarget1", value: 50, max: 100 }]); }).toThrowError("You must pass a minimum (Number) value for each target");
+		expect(() => { hc.setAllTargets([{ name: "myTarget1", value: 50, min: "0", max: 100 }]); }).toThrowError("You must pass a minimum (Number) value for each target");
+	});
+
+	test("Should fail if is passed a target that does not have a max or is not a number", () => {
+		const hc = new HillClimbing(mockTargets);
+		expect(() => { hc.setAllTargets([{ name: "myTarget1", value: 50, min: 0 }]); }).toThrowError("You must pass a maximum (Number) value for each target");
+		expect(() => { hc.setAllTargets([{ name: "myTarget1", value: 50, min: 0, max: "100" }]); }).toThrowError("You must pass a maximum (Number) value for each target");
+	});
+
+	// Normal Cases
 	test("Change all targets to the new targets", () => {
 		const mockNewTargets = [
 			{ name: "myNewTarget1", value: 0, min: 0, max: 5 },
@@ -76,6 +193,18 @@ describe("setAllTargets", () => {
 });
 
 describe("removeTarget", () => {
+	// Fails Cases
+	test("Should fail if no name of a target is passed", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.removeTarget(); }).toThrowError("You must pass a name");
+	});
+
+	test("Should fail if is passed a name of a target that is not a string", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.removeTarget(100); }).toThrowError("You must pass a name with the type String");
+	});
+
+	// Normal Cases
 	test("Remove a target from the list of targets", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
 		hillClimbing.removeTarget("myTarget1");
@@ -90,6 +219,7 @@ describe("removeTarget", () => {
 });
 
 describe("setTargetProperty", () => {
+	// Fails Cases
 	test("Should fail if no target name are passed", () => {
 		expect(() => {
 			const hc = new HillClimbing(mockTargets);
@@ -118,6 +248,7 @@ describe("setTargetProperty", () => {
 		}).toThrowError("Target myTarget4 not found");
 	});
 
+	// Normal Cases
 	test("Set name property", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
 		hillClimbing.setTargetProperty("myTarget1", "name", "myNewTarget1");
@@ -371,6 +502,18 @@ describe("getCurrentSolutionValues", () => {
 });
 
 describe("getCurrentTargetValueSolutionByName", () => {
+	// Fails Cases
+	test("Should fail if no name of a target is passed", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.getCurrentTargetValueSolutionByName(); }).toThrowError("You must pass a target name");
+	});
+
+	test("Should fail if is passed a name of a target that is not a string", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.getCurrentTargetValueSolutionByName(100); }).toThrowError("The target name must be a string");
+	});
+
+	// Normal cases
 	test("Should return the value of the current solution for the given target name", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
 
@@ -378,7 +521,7 @@ describe("getCurrentTargetValueSolutionByName", () => {
 		expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget2")).toEqual(mockTargets[1].value);
 		expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget3")).toEqual(mockTargets[2].value);
 
-		const solution1 = hillClimbing.run(); // NOT new best solution!
+		hillClimbing.run(); // NOT new best solution!
 		if (hillClimbing.lastTargetChanged.name === "myTarget1") {
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget1")).not.toEqual(mockTargets[0].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget2")).toEqual(mockTargets[1].value);
@@ -396,6 +539,18 @@ describe("getCurrentTargetValueSolutionByName", () => {
 });
 
 describe("getBestTargetValueSolutionByName", () => {
+	// Fails Cases
+	test("Should fail if no name of a target is passed", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.getBestTargetValueSolutionByName(); }).toThrowError("You must pass a target name");
+	});
+
+	test("Should fail if is passed a name of a target that is not a string", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+		expect(() => { hillClimbing.getBestTargetValueSolutionByName(100); }).toThrowError("The target name must be a string");
+	});
+
+	// Normal cases
 	test("Should return the value of the best solution for the given target name", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
 
@@ -539,19 +694,27 @@ describe("reset", () => {
 	});
 });
 
-describe("getVersion", () => {
-	test("Should return a string", () => {
-		expect(typeof HillClimbing.getVersion()).toBe("string");
-	});
-
-	test("Should return the same package version", () => {
-		expect(HillClimbing.getVersion()).toBe(Package.version);
-	});
-});
-
 describe("randomNumber", () => {
+	// Fails Cases
+	const hillClimbing = new HillClimbing(mockTargets);
+	test("Should fail if min is not a number", () => {
+		expect(() => { hillClimbing.randomNumber("a", 1); }).toThrowError("The minimum number must be a number");
+	});
+
+	test("Should fail if max is not a number", () => {
+		expect(() => { hillClimbing.randomNumber(1, "a"); }).toThrowError("The maximum number must be a number");
+	});
+
+	test("Should fail if precision is not a number", () => {
+		expect(() => { hillClimbing.randomNumber(1, 1, "a"); }).toThrowError("The precision number must be a number");
+	});
+
+	test("Should fail if min is greater than max", () => {
+		expect(() => { hillClimbing.randomNumber(2, 1); }).toThrowError("The minimum number must be less than the maximum number");
+	});
+
+	// Normal cases
 	test("Should return a random number between 0 and 1 (no arg)", () => {
-		const hillClimbing = new HillClimbing(mockTargets);
 		expect(typeof hillClimbing.randomNumber()).toBe("number");
 
 		// Empty parameters
@@ -561,7 +724,6 @@ describe("randomNumber", () => {
 
 	// Zero
 	test("Should return 0 (0 and 0)", () => {
-		const hillClimbing = new HillClimbing(mockTargets);
 		expect(typeof hillClimbing.randomNumber()).toBe("number");
 
 		expect(hillClimbing.randomNumber(0, 0)).toBe(0);
@@ -569,7 +731,6 @@ describe("randomNumber", () => {
 
 	// Positive Numbers
 	test("Should return a positive number (0 and 10)", () => {
-		const hillClimbing = new HillClimbing(mockTargets);
 		expect(typeof hillClimbing.randomNumber()).toBe("number");
 
 		expect(hillClimbing.randomNumber(0, 10)).toBeLessThanOrEqual(10);
@@ -578,7 +739,6 @@ describe("randomNumber", () => {
 
 	// Negative Numbers
 	test("Should return a negative number (-10 and 0)", () => {
-		const hillClimbing = new HillClimbing(mockTargets);
 		expect(typeof hillClimbing.randomNumber()).toBe("number");
 
 		expect(hillClimbing.randomNumber(-10, 0)).toBeLessThanOrEqual(-0);
@@ -587,10 +747,19 @@ describe("randomNumber", () => {
 
 	// Positive and Negative Numbers
 	test("Should return a random number (-10, 10)", () => {
-		const hillClimbing = new HillClimbing(mockTargets);
 		expect(typeof hillClimbing.randomNumber()).toBe("number");
 
 		expect(hillClimbing.randomNumber(-10, 10)).toBeLessThanOrEqual(10);
 		expect(hillClimbing.randomNumber(-10, 10)).toBeGreaterThanOrEqual(-10);
+	});
+});
+
+describe("getVersion", () => {
+	test("Should return a string", () => {
+		expect(typeof HillClimbing.getVersion()).toBe("string");
+	});
+
+	test("Should return the same package version", () => {
+		expect(HillClimbing.getVersion()).toBe(Package.version);
 	});
 });

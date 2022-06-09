@@ -28,6 +28,14 @@ class HillClimbing {
 		if (targets === undefined) throw new Error("You must pass a list of targets");
 		else if (targets.length === 0) throw new Error("You must pass at least one target");
 
+		targets.forEach(target => {
+			if (typeof target !== "object") throw new Error("You must pass a list of targets");
+			else if (target.name === undefined || typeof target.name !== "string") throw new Error("You must pass a name (String) for each target");
+			else if (target.value === undefined || typeof target.value !== "number") throw new Error("You must pass a value (Number) for each target");
+			else if (target.min === undefined || typeof target.min !== "number") throw new Error("You must pass a minimum (Number) value for each target");
+			else if (target.max === undefined || typeof target.max !== "number") throw new Error("You must pass a maximum (Number) value for each target");
+		});
+
 		this.targets = targets.map(target => ({ ...target }));
 		this.bestSolution = targets.map(target => ({ ...target }));
 		this.currentSolution = targets.map(target => ({ ...target }));
@@ -51,6 +59,12 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 */
 	addTarget(target) {
+		if (target === undefined) throw new Error("You must pass a target");
+		else if (typeof target !== "object") throw new Error("You must pass a target");
+		else if (target.name === undefined || typeof target.name !== "string") throw new Error("You must pass a name with the type String");
+		else if (target.value === undefined || typeof target.value !== "number") throw new Error("You must pass a value with the type Number");
+		else if (target.min === undefined || typeof target.min !== "number") throw new Error("You must pass a minimum with the type Number");
+		else if (target.max === undefined || typeof target.max !== "number") throw new Error("You must pass a maximum with the type Number");
 
 		this.targets.push(target);
 		this.bestSolution.push(target);
@@ -76,6 +90,14 @@ class HillClimbing {
 		if (targets === undefined) throw new Error("You must pass a list of targets");
 		else if (targets.length === 0) throw new Error("You must pass at least one target");
 
+		targets.forEach(target => {
+			if (typeof target !== "object") throw new Error("You must pass a list of targets");
+			else if (target.name === undefined || typeof target.name !== "string") throw new Error("You must pass a name (String) for each target");
+			else if (target.value === undefined || typeof target.value !== "number") throw new Error("You must pass a value (Number) for each target");
+			else if (target.min === undefined || typeof target.min !== "number") throw new Error("You must pass a minimum (Number) value for each target");
+			else if (target.max === undefined || typeof target.max !== "number") throw new Error("You must pass a maximum (Number) value for each target");
+		});
+
 		this.targets = targets;
 		this.bestSolution = targets;
 		this.currentSolution = targets;
@@ -93,6 +115,9 @@ class HillClimbing {
 	 * @memberof HillClimbing
 	 */
 	removeTarget(name) {
+		if (name === undefined) throw new Error("You must pass a name");
+		else if (typeof name !== "string") throw new Error("You must pass a name with the type String");
+
 		const index = this.targets.findIndex(target => target.name === name);
 		if (index > -1) {
 			this.targets.splice(index, 1);
@@ -105,9 +130,8 @@ class HillClimbing {
 	 * @description
 	 * Change a target property (name, min, max, precision)
 	 * 
-	 * @example
-	 * myHillClimbing.setTargetProperty("myTargetName", "name", "myNewName");
-	 * myHillClimbing.setTargetProperty("myNewName", "min", -100);
+	 * @example myHillClimbing.setTargetProperty("myTargetName", "name", "myNewName");
+	 * @example myHillClimbing.setTargetProperty("myNewName", "min", -100);
 	 * 
 	 * @param {string} targetName - The name of the target to change
 	 * @param {string} property - The property to change
@@ -281,7 +305,12 @@ class HillClimbing {
 	 * @returns {Number} The current solution value of the given target name
 	 * @memberof HillClimbing
 	 */
-	getCurrentTargetValueSolutionByName(name) { return this.currentSolution.find(target => target.name === name).value; }
+	getCurrentTargetValueSolutionByName(name) {
+		if (name === undefined) throw new Error("You must pass a target name");
+		else if (typeof name !== "string") throw new Error("The target name must be a string");
+
+		return this.currentSolution.find(target => target.name === name).value;
+	}
 
 	/**
 	 * @description
@@ -294,7 +323,12 @@ class HillClimbing {
 	 * @returns {Number} The best solution value of the given target name
 	 * @memberof HillClimbing
 	 */
-	getBestTargetValueSolutionByName(name) { return this.bestSolution.find(target => target.name === name).value; }
+	getBestTargetValueSolutionByName(name) {
+		if (name === undefined) throw new Error("You must pass a target name");
+		else if (typeof name !== "string") throw new Error("The target name must be a string");
+
+		return this.bestSolution.find(target => target.name === name).value;
+	}
 
 	/**
 	 * @description
@@ -375,7 +409,14 @@ class HillClimbing {
 	 * @returns {Number} The random number
 	 * @memberof HillClimbing
 	 */
-	randomNumber(min = 0, max = 1, precision = 0) { return parseFloat((Math.random() * (max - min) + min).toFixed(precision)) }
+	randomNumber(min = 0, max = 1, precision = 0) {
+		if (typeof min !== "number") throw new Error("The minimum number must be a number");
+		else if (typeof max !== "number") throw new Error("The maximum number must be a number");
+		else if (typeof precision !== "number") throw new Error("The precision number must be a number");
+		else if (min > max) throw new Error("The minimum number must be less than the maximum number");
+
+		return parseFloat((Math.random() * (max - min) + min).toFixed(precision))
+	}
 
 	/**
 	 * @description 
