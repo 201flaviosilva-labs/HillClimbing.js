@@ -8,6 +8,10 @@ This is a implemented algorithm in javascript.
 ## Index
 - [Getting Started](./GetStarted.md);
 - [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/);
+- [Cheat Sheet](./CheatSheet.md);
+
+## Examples
+- [Asteroids](https://u1dtur.csb.app/);
 
 ## Community
 - [NPM package page](https://www.npmjs.com/package/hillclimbing);

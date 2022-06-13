@@ -22,7 +22,17 @@
     "np": "^7.6.1",
     "tui-jsdoc-template": "^1.2.2"
   },
-  "keywords": [],
+  "keywords": [
+    "AI",
+    "Search",
+    "Algorithm",
+    "Optimization",
+    "Optimization Algorithm",
+    "Search Algorithm",
+    "Artificial Intelligence",
+    "Hill Climbing",
+    "Hill Climbing Algorithm"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/201flaviosilva/HillClimbing.js.git"
