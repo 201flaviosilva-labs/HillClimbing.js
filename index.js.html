@@ -36,7 +36,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="HillClimbing.html">HillClimbing</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="HillClimbing_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="HillClimbing.html#.getVersion">getVersion</a></li><li><a href="HillClimbing.html#addTarget">addTarget</a></li><li><a href="HillClimbing.html#getBestScore">getBestScore</a></li><li><a href="HillClimbing.html#getBestSolution">getBestSolution</a></li><li><a href="HillClimbing.html#getBestSolutionValues">getBestSolutionValues</a></li><li><a href="HillClimbing.html#getBestTargetValueSolutionByName">getBestTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getCurrentSolution">getCurrentSolution</a></li><li><a href="HillClimbing.html#getCurrentSolutionValues">getCurrentSolutionValues</a></li><li><a href="HillClimbing.html#getCurrentTargetValueSolutionByName">getCurrentTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getLastTargetChanged">getLastTargetChanged</a></li><li><a href="HillClimbing.html#getNumberOfIterations">getNumberOfIterations</a></li><li><a href="HillClimbing.html#getTargets">getTargets</a></li><li><a href="HillClimbing.html#randomNumber">randomNumber</a></li><li><a href="HillClimbing.html#removeTarget">removeTarget</a></li><li><a href="HillClimbing.html#reset">reset</a></li><li><a href="HillClimbing.html#run">run</a></li><li><a href="HillClimbing.html#setAllTargets">setAllTargets</a></li><li><a href="HillClimbing.html#setTargetMax">setTargetMax</a></li><li><a href="HillClimbing.html#setTargetMin">setTargetMin</a></li><li><a href="HillClimbing.html#setTargetName">setTargetName</a></li><li><a href="HillClimbing.html#setTargetPrecision">setTargetPrecision</a></li><li><a href="HillClimbing.html#setTargetProperty">setTargetProperty</a></li></ul></div></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="HillClimbing.html">HillClimbing</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="HillClimbing_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="HillClimbing.html#.getVersion">getVersion</a></li><li><a href="HillClimbing.html#addTarget">addTarget</a></li><li><a href="HillClimbing.html#exportData">exportData</a></li><li><a href="HillClimbing.html#getBestScore">getBestScore</a></li><li><a href="HillClimbing.html#getBestSolution">getBestSolution</a></li><li><a href="HillClimbing.html#getBestSolutionValues">getBestSolutionValues</a></li><li><a href="HillClimbing.html#getBestTargetValueSolutionByName">getBestTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getCurrentSolution">getCurrentSolution</a></li><li><a href="HillClimbing.html#getCurrentSolutionValues">getCurrentSolutionValues</a></li><li><a href="HillClimbing.html#getCurrentTargetValueSolutionByName">getCurrentTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getLastTargetChanged">getLastTargetChanged</a></li><li><a href="HillClimbing.html#getNumberOfIterations">getNumberOfIterations</a></li><li><a href="HillClimbing.html#getTargets">getTargets</a></li><li><a href="HillClimbing.html#randomNumber">randomNumber</a></li><li><a href="HillClimbing.html#removeTarget">removeTarget</a></li><li><a href="HillClimbing.html#reset">reset</a></li><li><a href="HillClimbing.html#run">run</a></li><li><a href="HillClimbing.html#setAllTargets">setAllTargets</a></li><li><a href="HillClimbing.html#setTargetMax">setTargetMax</a></li><li><a href="HillClimbing.html#setTargetMin">setTargetMin</a></li><li><a href="HillClimbing.html#setTargetName">setTargetName</a></li><li><a href="HillClimbing.html#setTargetPrecision">setTargetPrecision</a></li><li><a href="HillClimbing.html#setTargetProperty">setTargetProperty</a></li></ul></div></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -74,7 +74,7 @@
  * @see {@link https://en.wikipedia.org/wiki/Hill_climbing}
  */
 class HillClimbing {
-	constructor(targets) {
+	constructor(targets, startScore = -Infinity) {
 		if (targets === undefined) throw new Error("You must pass a list of targets");
 		else if (targets.length === 0) throw new Error("You must pass at least one target");
 
@@ -86,15 +86,24 @@ class HillClimbing {
 			else if (target.max === undefined || typeof target.max !== "number") throw new Error("You must pass a maximum (Number) value for each target");
 		});
 
+		if (typeof startScore !== "number") throw new Error("You must pass a start score (Number)");
+
 		this.targets = targets.map(target => ({ ...target }));
 		this.bestSolution = targets.map(target => ({ ...target }));
 		this.currentSolution = targets.map(target => ({ ...target }));
 
 		this.lastTargetChanged = null;
-		this.lastScore = -Infinity;
+		this.lastScore = startScore;
 
 		this.numberOfIterations = 0;
-		this.bestScore = -Infinity;
+		this.bestScore = startScore;
+
+		this.iterationsData = [{
+			iteration: this.numberOfIterations,
+			score: startScore,
+			changedTarget: this.lastTargetChanged,
+			solution: this.currentSolution,
+		}];
 	}
 
 	/**
@@ -425,7 +434,31 @@ class HillClimbing {
 		this.lastTargetChanged = target;
 		this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max, target.precision);
 
-		return this.currentSolution.map(target => ({ ...target }));
+		const newSolution = this.currentSolution.map(target => ({ ...target }));
+		this.iterationsData.push({
+			iteration: this.numberOfIterations,
+			score: score,
+			changedTarget: target,
+			solution: newSolution,
+		});
+
+		return newSolution;
+	}
+
+	/**
+	 * @description
+	 * Returns the data of all iterations
+	 * 
+	 * @example
+	 * console.log(myHillClimbing.exportData());
+	 * 
+	 * @param {boolean} json - true if the exported data should be in JSON format
+	 * @returns {Object[]|string} The data of all iterations
+	 * @memberof HillClimbing
+	 */
+	exportData(json = false) {
+		if (json) return JSON.stringify(this.iterationsData);
+		return this.iterationsData;
 	}
 
 	/**
