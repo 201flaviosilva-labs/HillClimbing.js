@@ -63,6 +63,10 @@ describe("Instantiate", () => {
 		}).toThrowError("You must pass a maximum (Number) value for each target");
 	});
 
+	test("Should fail if startScore is not a number", () => {
+		expect(() => { new HillClimbing(mockTargets, "50"); }).toThrowError("You must pass a start score (Number)");
+	});
+
 	// Normal Cases
 	test("Add mocked targets", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
@@ -75,6 +79,18 @@ describe("Instantiate", () => {
 
 		expect(hillClimbing.numberOfIterations).toBe(0);
 		expect(hillClimbing.bestScore).toBe(-Infinity);
+	});
+
+	test("Add mocked targets and a positive start score", () => {
+		const hillClimbing = new HillClimbing(mockTargets, 100);
+		expect(hillClimbing.lastScore).toBe(100);
+		expect(hillClimbing.bestScore).toBe(100);
+	});
+
+	test("Add mocked targets and a negative start score", () => {
+		const hillClimbing = new HillClimbing(mockTargets, -100);
+		expect(hillClimbing.lastScore).toBe(-100);
+		expect(hillClimbing.bestScore).toBe(-100);
 	});
 });
 
@@ -662,6 +678,45 @@ describe("run", () => {
 
 		expect(hillClimbing.lastScore).toBe(-Infinity);
 		expect(hillClimbing.bestScore).toBe(200);
+	});
+});
+
+describe("exportData", () => {
+	test("Should return an array with all iterations", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+
+		expect(hillClimbing.exportData().length).toBe(1);
+
+		hillClimbing.run(100);
+		hillClimbing.run(200);
+		hillClimbing.run(300);
+
+		const data = hillClimbing.exportData();
+
+		expect(data.length).toBe(4);
+		expect(data[1].iteration).toBe(1);
+		expect(data[1].score).toBe(100);
+		expect(typeof data[1].changedTarget).toBe("object");
+		expect(typeof data[1].solution).toBe("object");
+
+		expect(data[2].iteration).toBe(2);
+		expect(data[2].score).toBe(200);
+		expect(typeof data[2].changedTarget).toBe("object");
+		expect(typeof data[2].solution).toBe("object");
+	});
+
+	test("Should return an JSON string with all iterations", () => {
+		const hillClimbing = new HillClimbing(mockTargets);
+
+		expect(hillClimbing.exportData(true)).toContain(JSON.stringify(mockTargets));
+
+		hillClimbing.run(100);
+		hillClimbing.run(200);
+		hillClimbing.run(300);
+
+		const data = hillClimbing.exportData(true);
+
+		expect(typeof data).toBe("string");
 	});
 });
 

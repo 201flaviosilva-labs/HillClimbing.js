@@ -24,7 +24,7 @@ import Package from "../package.json";
  * @see {@link https://en.wikipedia.org/wiki/Hill_climbing}
  */
 class HillClimbing {
-	constructor(targets) {
+	constructor(targets, startScore = -Infinity) {
 		if (targets === undefined) throw new Error("You must pass a list of targets");
 		else if (targets.length === 0) throw new Error("You must pass at least one target");
 
@@ -36,15 +36,24 @@ class HillClimbing {
 			else if (target.max === undefined || typeof target.max !== "number") throw new Error("You must pass a maximum (Number) value for each target");
 		});
 
+		if (typeof startScore !== "number") throw new Error("You must pass a start score (Number)");
+
 		this.targets = targets.map(target => ({ ...target }));
 		this.bestSolution = targets.map(target => ({ ...target }));
 		this.currentSolution = targets.map(target => ({ ...target }));
 
 		this.lastTargetChanged = null;
-		this.lastScore = -Infinity;
+		this.lastScore = startScore;
 
 		this.numberOfIterations = 0;
-		this.bestScore = -Infinity;
+		this.bestScore = startScore;
+
+		this.iterationsData = [{
+			iteration: this.numberOfIterations,
+			score: startScore,
+			changedTarget: this.lastTargetChanged,
+			solution: this.currentSolution,
+		}];
 	}
 
 	/**
@@ -375,7 +384,31 @@ class HillClimbing {
 		this.lastTargetChanged = target;
 		this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max, target.precision);
 
-		return this.currentSolution.map(target => ({ ...target }));
+		const newSolution = this.currentSolution.map(target => ({ ...target }));
+		this.iterationsData.push({
+			iteration: this.numberOfIterations,
+			score: score,
+			changedTarget: target,
+			solution: newSolution,
+		});
+
+		return newSolution;
+	}
+
+	/**
+	 * @description
+	 * Returns the data of all iterations
+	 * 
+	 * @example
+	 * console.log(myHillClimbing.exportData());
+	 * 
+	 * @param {boolean} json - true if the exported data should be in JSON format
+	 * @returns {Object[]|string} The data of all iterations
+	 * @memberof HillClimbing
+	 */
+	exportData(json = false) {
+		if (json) return JSON.stringify(this.iterationsData);
+		return this.iterationsData;
 	}
 
 	/**
