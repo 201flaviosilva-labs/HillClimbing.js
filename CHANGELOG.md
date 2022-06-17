@@ -12,6 +12,8 @@
 
 ## 0.0.2 (Date: 09/06/2022)
 - (Add)
+  - Add option to start algorithm with a initial value;
+  - Export option, in javascript object and JSON format;
   - Add precision property to the targets;
   - Functions to change a property of a target by the target name;
   - Update some documentation;
