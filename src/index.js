@@ -17,14 +17,19 @@ import Package from "../package.json";
  * { name: "myValue3", value: 764, min: 100, max: 1250, precision: 10 },
  * ];
  * 
+ * const options = {startScore: -100, numberOfMutations:2};
+ * 
  * const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
  * 
  * @param {Object[]} targets - a list of targets
+ * @param {Object} options - options for the algorithm
+ * @param {number} [options.startScore=-Infinity] - the starting score for the algorithm
+ * @param {number} [options.numberOfMutations=1] - number of mutations per run (not targets)
  * @constructor
  * @see {@link https://en.wikipedia.org/wiki/Hill_climbing}
  */
 class HillClimbing {
-	constructor(targets, startScore = -Infinity) {
+	constructor(targets, options = { startScore: -Infinity, numberOfMutations: 1 }) {
 		if (targets === undefined) throw new Error("You must pass a list of targets");
 		else if (targets.length === 0) throw new Error("You must pass at least one target");
 
@@ -36,24 +41,28 @@ class HillClimbing {
 			else if (target.max === undefined || typeof target.max !== "number") throw new Error("You must pass a maximum (Number) value for each target");
 		});
 
-		if (typeof startScore !== "number") throw new Error("You must pass a start score (Number)");
+		if (typeof options !== "object") throw new Error("You must pass an options object");
 
 		this.targets = targets.map(target => ({ ...target }));
 		this.bestSolution = targets.map(target => ({ ...target }));
 		this.currentSolution = targets.map(target => ({ ...target }));
 
-		this.lastTargetChanged = null;
-		this.lastScore = startScore;
+		this.lastTargetsChanged = [];
+		this.lastScore = options.startScore;
 
 		this.numberOfIterations = 0;
-		this.bestScore = startScore;
+		this.bestScore = options.startScore;
+
+		this.numberOfMutations = options.numberOfMutations;
 
 		this.iterationsData = [{
 			iteration: this.numberOfIterations,
-			score: startScore,
-			changedTarget: this.lastTargetChanged,
+			score: options.startScore,
+			changedTargets: this.lastTargetsChanged,
 			solution: this.currentSolution,
 		}];
+
+		this._startScore = options.startScore;
 	}
 
 	/**
@@ -344,12 +353,12 @@ class HillClimbing {
 	 * Returns the last target that has been changed
 	 * 
 	 * @example
-	 * console.log(myHillClimbing.getLastTargetChanged());
+	 * console.log(myHillClimbing.getLastTargetsChanged()); // [Target]
 	 * 
-	 * @returns {Object} The last target that has been changed
+	 * @returns {Object[]} The last target that has been changed
 	 * @memberof HillClimbing
 	 */
-	getLastTargetChanged() { return this.lastTargetChanged ? { ...this.lastTargetChanged } : null; }
+	getLastTargetsChanged() { return this.lastTargetsChanged.map(target => ({ ...target })); }
 
 	/**
 	 * @description
@@ -368,6 +377,7 @@ class HillClimbing {
 	 */
 	run(score = -Infinity) {
 		this.numberOfIterations++;
+		this.lastTargetsChanged = [];
 		this.lastScore = score;
 
 		// If the current solution is better than the bestSolution, update the best solution
@@ -376,19 +386,21 @@ class HillClimbing {
 			this.bestSolution = this.currentSolution.map(target => ({ ...target }));
 		} else this.currentSolution = this.bestSolution.map(target => ({ ...target }));
 
-		// Get a new random target to change
-		let targetIndex = this.randomNumber(0, this.bestSolution.length - 1);
-		const target = { ...this.bestSolution[targetIndex] };
+		for (let i = 0; i < this.numberOfMutations; i++) {
+			// Get a new random target to change
+			let targetIndex = this.randomNumber(0, this.bestSolution.length - 1);
+			const target = { ...this.bestSolution[targetIndex] };
 
-		// Change the value of the target
-		this.lastTargetChanged = target;
-		this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max, target.precision);
+			// Change the value of the target
+			this.lastTargetsChanged.push(target);
+			this.currentSolution[targetIndex].value = this.randomNumber(target.min, target.max, target.precision);
+		}
 
 		const newSolution = this.currentSolution.map(target => ({ ...target }));
 		this.iterationsData.push({
 			iteration: this.numberOfIterations,
 			score: score,
-			changedTarget: target,
+			changedTarget: this.lastTargetsChanged,
 			solution: newSolution,
 		});
 
@@ -425,9 +437,10 @@ class HillClimbing {
 		this.numberOfIterations = 0;
 		this.bestSolution = this.targets.map(target => ({ ...target }));
 		this.currentSolution = this.targets.map(target => ({ ...target }));
-		this.lastTargetChanged = null;
-		this.bestScore = -Infinity;
-		this.lastScore = -Infinity;
+		this.lastTargetsChanged = [];
+		this.bestScore = this._startScore;
+		this.lastScore = this._startScore;
+		this.iterationsData = [];
 	}
 
 	/**

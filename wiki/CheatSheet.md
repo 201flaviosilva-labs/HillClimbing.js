@@ -2,6 +2,7 @@
 
 [Check a complete API documentation](https://201flaviosilva.github.io/HillClimbing.js/HillClimbing.html).
 
+## Methods
 | Name                                | Summary                                                  | param 1                   | param 2              | param 3                 | return        |
 | ----------------------------------- | -------------------------------------------------------- | ------------------------- | -------------------- | ----------------------- | ------------- |
 | (static) getVersion                 | Library version                                          | -                         | -                    | -                       | String        |
@@ -25,3 +26,12 @@
 | setTargetPrecision                  | Change a target precision                                | * targetName (String)     | * precision (Number) | -                       | -             |
 | setTargetProperty                   | Change a target property                                 | * targetName (String)     | * property (String)  | * value (String/Number) | -             |
 | randomNumber                        | generate random number                                   | * min (Number)            | * max (Number)       | precision (Int)         | Number        |
+
+## Target
+| Name      | Summary                 | Type   |
+| --------- | ----------------------- | ------ |
+| name      | Target name             | String |
+| min       | Minimum value           | Number |
+| max       | Maximum value           | Number |
+| precision | Precision of the target | Number |
+| value     | Current value           | Number |

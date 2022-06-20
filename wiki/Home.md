@@ -12,6 +12,7 @@ This is a implemented algorithm in javascript.
 
 ## Examples
 - [Asteroids](https://u1dtur.csb.app/);
+- [Code Sandbox Examples](https://codesandbox.io/examples/package/hillclimbing);
 
 ## Community
 - [NPM package page](https://www.npmjs.com/package/hillclimbing);

@@ -63,9 +63,10 @@ describe("Instantiate", () => {
 		}).toThrowError("You must pass a maximum (Number) value for each target");
 	});
 
-	test("Should fail if startScore is not a number", () => {
-		expect(() => { new HillClimbing(mockTargets, "50"); }).toThrowError("You must pass a start score (Number)");
+	test("Should fail options is not an object", () => {
+		expect(() => { new HillClimbing(mockTargets, "options"); }).toThrowError("You must pass an options object");
 	});
+
 
 	// Normal Cases
 	test("Add mocked targets", () => {
@@ -74,7 +75,7 @@ describe("Instantiate", () => {
 		expect(hillClimbing.bestSolution).toEqual(mockTargets);
 		expect(hillClimbing.currentSolution).toEqual(mockTargets);
 
-		expect(hillClimbing.lastTargetChanged).toBeNull();
+		expect(hillClimbing.lastTargetsChanged).toEqual([]);
 		expect(hillClimbing.lastScore).toBe(-Infinity);
 
 		expect(hillClimbing.numberOfIterations).toBe(0);
@@ -82,13 +83,13 @@ describe("Instantiate", () => {
 	});
 
 	test("Add mocked targets and a positive start score", () => {
-		const hillClimbing = new HillClimbing(mockTargets, 100);
+		const hillClimbing = new HillClimbing(mockTargets, { startScore: 100 });
 		expect(hillClimbing.lastScore).toBe(100);
 		expect(hillClimbing.bestScore).toBe(100);
 	});
 
 	test("Add mocked targets and a negative start score", () => {
-		const hillClimbing = new HillClimbing(mockTargets, -100);
+		const hillClimbing = new HillClimbing(mockTargets, { startScore: -100 });
 		expect(hillClimbing.lastScore).toBe(-100);
 		expect(hillClimbing.bestScore).toBe(-100);
 	});
@@ -538,15 +539,15 @@ describe("getCurrentTargetValueSolutionByName", () => {
 		expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget3")).toEqual(mockTargets[2].value);
 
 		hillClimbing.run(); // NOT new best solution!
-		if (hillClimbing.lastTargetChanged.name === "myTarget1") {
+		if (hillClimbing.lastTargetsChanged.name === "myTarget1") {
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget1")).not.toEqual(mockTargets[0].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget2")).toEqual(mockTargets[1].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget3")).toEqual(mockTargets[2].value);
-		} else if (hillClimbing.lastTargetChanged.name === "myTarget2") {
+		} else if (hillClimbing.lastTargetsChanged.name === "myTarget2") {
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget1")).toEqual(mockTargets[0].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget2")).not.toEqual(mockTargets[1].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget3")).toEqual(mockTargets[2].value);
-		} else if (hillClimbing.lastTargetChanged.name === "myTarget3") {
+		} else if (hillClimbing.lastTargetsChanged.name === "myTarget3") {
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget1")).toEqual(mockTargets[0].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget2")).toEqual(mockTargets[1].value);
 			expect(hillClimbing.getCurrentTargetValueSolutionByName("myTarget3")).not.toEqual(mockTargets[2].value);
@@ -586,14 +587,25 @@ describe("getBestTargetValueSolutionByName", () => {
 	});
 });
 
-describe("getLastTargetChanged", () => {
-	test("Should return the last target that changed", () => {
+describe("getLastTargetsChanged", () => {
+	test("Should return the last targets that changed (no options)", () => {
 		const hillClimbing = new HillClimbing(mockTargets);
 
-		expect(hillClimbing.getLastTargetChanged()).toBeNull(); // no target changed yet
+		expect(hillClimbing.getLastTargetsChanged()).toEqual([]); // no target changed yet
 
 		const solution1 = hillClimbing.run();
-		expect(hillClimbing.getLastTargetChanged()).not.toEqual(null);
+		expect(hillClimbing.getLastTargetsChanged()).not.toEqual(null);
+		expect(hillClimbing.getLastTargetsChanged().length).toEqual(1);
+	});
+
+	test("Should return the last targets that changed (3 mutations per run)", () => {
+		const hillClimbing = new HillClimbing(mockTargets, { numberOfMutations: 3 });
+
+		expect(hillClimbing.getLastTargetsChanged()).toEqual([]); // no target changed yet
+
+		const solution1 = hillClimbing.run();
+		expect(hillClimbing.getLastTargetsChanged()).not.toEqual(null);
+		expect(hillClimbing.getLastTargetsChanged().length).toEqual(3);
 	});
 });
 
@@ -608,7 +620,7 @@ describe("run", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution1);
 
 		expect(hillClimbing.numberOfIterations).toBe(1);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
 
 		expect(hillClimbing.lastScore).toBe(100);
 		expect(hillClimbing.bestScore).toBe(100);
@@ -625,7 +637,7 @@ describe("run", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution1);
 
 		expect(hillClimbing.numberOfIterations).toBe(1);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
 
 		expect(hillClimbing.lastScore).toBe(-Infinity);
 		expect(hillClimbing.bestScore).toBe(-Infinity);
@@ -638,7 +650,7 @@ describe("run", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution2);
 
 		expect(hillClimbing.numberOfIterations).toBe(2);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
 
 		expect(hillClimbing.lastScore).toBe(100);
 		expect(hillClimbing.bestScore).toBe(100);
@@ -650,7 +662,7 @@ describe("run", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution3);
 
 		expect(hillClimbing.numberOfIterations).toBe(3);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
 
 		expect(hillClimbing.lastScore).toBe(-1000);
 		expect(hillClimbing.bestScore).toBe(100);
@@ -662,7 +674,7 @@ describe("run", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution4);
 
 		expect(hillClimbing.numberOfIterations).toBe(4);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
 
 		expect(hillClimbing.lastScore).toBe(200);
 		expect(hillClimbing.bestScore).toBe(200);
@@ -674,7 +686,7 @@ describe("run", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution5);
 
 		expect(hillClimbing.numberOfIterations).toBe(5);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
 
 		expect(hillClimbing.lastScore).toBe(-Infinity);
 		expect(hillClimbing.bestScore).toBe(200);
@@ -730,7 +742,8 @@ describe("reset", () => {
 		expect(hillClimbing.currentSolution).toEqual(solution1);
 
 		expect(hillClimbing.numberOfIterations).toBe(1);
-		expect(hillClimbing.lastTargetChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged).not.toBeNull();
+		expect(hillClimbing.lastTargetsChanged.length).toBe(1);
 
 		expect(hillClimbing.lastScore).toBe(1);
 		expect(hillClimbing.bestScore).toBe(1);
@@ -742,10 +755,25 @@ describe("reset", () => {
 		expect(hillClimbing.currentSolution).toEqual(mockTargets);
 
 		expect(hillClimbing.numberOfIterations).toBe(0);
-		expect(hillClimbing.lastTargetChanged).toBeNull();
+		expect(hillClimbing.lastTargetsChanged).toEqual([]);
 
 		expect(hillClimbing.lastScore).toBe(-Infinity);
 		expect(hillClimbing.bestScore).toBe(-Infinity);
+		expect(hillClimbing.iterationsData).toEqual([]);
+	});
+
+	test("Should reset all values, with a start value", () => {
+		const hillClimbing = new HillClimbing(mockTargets, { startScore: 100 });
+		expect(hillClimbing.lastScore).toBe(100);
+		expect(hillClimbing.bestScore).toBe(100);
+
+		hillClimbing.run(101); // new best score!
+		expect(hillClimbing.lastScore).toBe(101);
+		expect(hillClimbing.bestScore).toBe(101);
+
+		hillClimbing.reset();
+		expect(hillClimbing.lastScore).toBe(100);
+		expect(hillClimbing.bestScore).toBe(100);
 	});
 });
 
