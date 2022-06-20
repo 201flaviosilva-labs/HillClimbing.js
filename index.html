@@ -34,7 +34,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="HillClimbing.html">HillClimbing</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="HillClimbing_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="HillClimbing.html#.getVersion">getVersion</a></li><li><a href="HillClimbing.html#addTarget">addTarget</a></li><li><a href="HillClimbing.html#exportData">exportData</a></li><li><a href="HillClimbing.html#getBestScore">getBestScore</a></li><li><a href="HillClimbing.html#getBestSolution">getBestSolution</a></li><li><a href="HillClimbing.html#getBestSolutionValues">getBestSolutionValues</a></li><li><a href="HillClimbing.html#getBestTargetValueSolutionByName">getBestTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getCurrentSolution">getCurrentSolution</a></li><li><a href="HillClimbing.html#getCurrentSolutionValues">getCurrentSolutionValues</a></li><li><a href="HillClimbing.html#getCurrentTargetValueSolutionByName">getCurrentTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getLastTargetChanged">getLastTargetChanged</a></li><li><a href="HillClimbing.html#getNumberOfIterations">getNumberOfIterations</a></li><li><a href="HillClimbing.html#getTargets">getTargets</a></li><li><a href="HillClimbing.html#randomNumber">randomNumber</a></li><li><a href="HillClimbing.html#removeTarget">removeTarget</a></li><li><a href="HillClimbing.html#reset">reset</a></li><li><a href="HillClimbing.html#run">run</a></li><li><a href="HillClimbing.html#setAllTargets">setAllTargets</a></li><li><a href="HillClimbing.html#setTargetMax">setTargetMax</a></li><li><a href="HillClimbing.html#setTargetMin">setTargetMin</a></li><li><a href="HillClimbing.html#setTargetName">setTargetName</a></li><li><a href="HillClimbing.html#setTargetPrecision">setTargetPrecision</a></li><li><a href="HillClimbing.html#setTargetProperty">setTargetProperty</a></li></ul></div></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="HillClimbing.html">HillClimbing</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="HillClimbing_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="HillClimbing.html#.getVersion">getVersion</a></li><li><a href="HillClimbing.html#addTarget">addTarget</a></li><li><a href="HillClimbing.html#exportData">exportData</a></li><li><a href="HillClimbing.html#getBestScore">getBestScore</a></li><li><a href="HillClimbing.html#getBestSolution">getBestSolution</a></li><li><a href="HillClimbing.html#getBestSolutionValues">getBestSolutionValues</a></li><li><a href="HillClimbing.html#getBestTargetValueSolutionByName">getBestTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getCurrentSolution">getCurrentSolution</a></li><li><a href="HillClimbing.html#getCurrentSolutionValues">getCurrentSolutionValues</a></li><li><a href="HillClimbing.html#getCurrentTargetValueSolutionByName">getCurrentTargetValueSolutionByName</a></li><li><a href="HillClimbing.html#getLastTargetsChanged">getLastTargetsChanged</a></li><li><a href="HillClimbing.html#getNumberOfIterations">getNumberOfIterations</a></li><li><a href="HillClimbing.html#getTargets">getTargets</a></li><li><a href="HillClimbing.html#randomNumber">randomNumber</a></li><li><a href="HillClimbing.html#removeTarget">removeTarget</a></li><li><a href="HillClimbing.html#reset">reset</a></li><li><a href="HillClimbing.html#run">run</a></li><li><a href="HillClimbing.html#setAllTargets">setAllTargets</a></li><li><a href="HillClimbing.html#setTargetMax">setTargetMax</a></li><li><a href="HillClimbing.html#setTargetMin">setTargetMin</a></li><li><a href="HillClimbing.html#setTargetName">setTargetName</a></li><li><a href="HillClimbing.html#setTargetPrecision">setTargetPrecision</a></li><li><a href="HillClimbing.html#setTargetProperty">setTargetProperty</a></li></ul></div></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -101,7 +101,12 @@
 	{ name: &quot;myValue3&quot;, value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
-const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
+const options = { // if you want, you can specify some default options
+	startScore: -100, // The score that the algorithm starts with, (on reset it will be set to this value)
+	numberOfMutations: 2, // The number of mutations that the algorithm will run every iteration
+	}
+
+const myHillClimbing = new HillClimbing(targets, options); // Create a new instance and pass the initial data (targets)
 </code></pre>
 <h3>Update iterations</h3>
 <pre class="prettyprint source lang-js"><code>const myScore = 10;
@@ -116,7 +121,9 @@ const targets = [
 	{ name: &quot;myValue3&quot;, value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
-const myHillClimbing = new HillClimbing(targets);
+const options = {startScore: -100, numberOfMutations: 2};
+
+const myHillClimbing = new HillClimbing(targets, options);
 
 const myScore = 10;
 const myNewSolution = myHillClimbing.run(myScore);
