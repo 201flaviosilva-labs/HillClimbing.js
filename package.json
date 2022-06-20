@@ -10,7 +10,7 @@
     "clear": "rm -rf docs && rm -rf types && rm -rf build",
     "start:test": "jest --watchAll",
     "test": "jest",
-    "types": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "types": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir build",
     "jsDoc": "jsdoc -c jsdoc.conf.json",
     "compile": "webpack --mode production",
     "build": "npm run clear && npm run compile && npm run jsDoc && npm run types",
