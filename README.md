@@ -49,7 +49,12 @@ const targets = [
 	{ name: "myValue3", value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
-const myHillClimbing = new HillClimbing(targets); // Create a new instance and pass the initial data (targets)
+const options = { // if you want, you can specify some default options
+	startScore: -100, // The score that the algorithm starts with, (on reset it will be set to this value)
+	numberOfMutations: 2, // The number of mutations that the algorithm will run every iteration
+	}
+
+const myHillClimbing = new HillClimbing(targets, options); // Create a new instance and pass the initial data (targets)
 ```
 
 ### Update iterations
@@ -69,7 +74,9 @@ const targets = [
 	{ name: "myValue3", value: 764, min: 100, max: 1250, precision: 10 },
 ];
 
-const myHillClimbing = new HillClimbing(targets);
+const options = {startScore: -100, numberOfMutations: 2};
+
+const myHillClimbing = new HillClimbing(targets, options);
 
 const myScore = 10;
 const myNewSolution = myHillClimbing.run(myScore);
