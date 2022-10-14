@@ -1,6 +1,6 @@
 # Simple Get Started
 
-This is a simple example of how to use the library. If you want to check the API documentation -> [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/).
+This is a simple example of how to use the library. If you want to check the API documentation -> [JS Docs API](https://201flaviosilva-labs.github.io/HillClimbing.js/).
 
 ## Import the library from npm
 
@@ -62,4 +62,4 @@ const myScore = 10;
 const myNewSolution = myHillClimbing.run(myScore);
 ```
 
-For more information, examples and a better understanding, check the here -> [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/).
+For more information, examples and a better understanding, check the here -> [JS Docs API](https://201flaviosilva-labs.github.io/HillClimbing.js/).

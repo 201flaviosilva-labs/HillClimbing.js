@@ -1,6 +1,6 @@
 # Cheat Sheet
 
-[Check a complete API documentation](https://201flaviosilva.github.io/HillClimbing.js/HillClimbing.html).
+[Check a complete API documentation](https://201flaviosilva-labs.github.io/HillClimbing.js/HillClimbing.html).
 
 ## Methods
 | Name                                | Summary                                                  | param 1                   | param 2              | param 3                 | return        |

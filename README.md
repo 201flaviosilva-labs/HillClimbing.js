@@ -20,7 +20,7 @@ A [hill climbing](https://en.wikipedia.org/wiki/Hill_climbing) algorithm impleme
 
 ## Simple Get Started
 
-This is a simple example of how to use the library. For a more complete example, check the [Wiki](https://github.com/201flaviosilva/HillClimbing.js/wiki).
+This is a simple example of how to use the library. For a more complete example, check the [Wiki](https://github.com/201flaviosilva-labs/HillClimbing.js/wiki).
 
 ### Import the library from npm
 
@@ -82,12 +82,12 @@ const myScore = 10;
 const myNewSolution = myHillClimbing.run(myScore);
 ```
 
-For more information, examples and a better understanding, check the [Wiki](https://github.com/201flaviosilva/HillClimbing.js/wiki).
+For more information, examples and a better understanding, check the [Wiki](https://github.com/201flaviosilva-labs/HillClimbing.js/wiki).
 
 ## Community
 - [NPM package page](https://www.npmjs.com/package/hillclimbing);
-- [Wiki (Documentation)](https://github.com/201flaviosilva/HillClimbing.js/wiki);
-- [JS Docs API](https://201flaviosilva.github.io/HillClimbing.js/);
-- [GitHub](https://github.com/201flaviosilva/HillClimbing.js);
-  - [Issues](https://github.com/201flaviosilva/HillClimbing.js/issues);
-  - [Pull Requests](https://github.com/201flaviosilva/HillClimbing.js/pulls);
+- [Wiki (Documentation)](https://github.com/201flaviosilva-labs/HillClimbing.js/wiki);
+- [JS Docs API](https://201flaviosilva-labs.github.io/HillClimbing.js/);
+- [GitHub](https://github.com/201flaviosilva-labs/HillClimbing.js);
+  - [Issues](https://github.com/201flaviosilva-labs/HillClimbing.js/issues);
+  - [Pull Requests](https://github.com/201flaviosilva-labs/HillClimbing.js/pulls);
